@@ -7,11 +7,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{C94B57DF
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogProxyApi.Common", "LogProxyApi.Common\LogProxyApi.Common.csproj", "{D7EE1CF1-1D28-4726-81BC-879F67B1D384}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogProxyApi.AirTable", "LogProxyApi.AirTable\LogProxyApi.AirTable.csproj", "{91CE12FA-E36A-4986-A02D-FAEFF84D3316}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogProxyApi.AirTable", "LogProxyApi.AirTable\LogProxyApi.AirTable.csproj", "{91CE12FA-E36A-4986-A02D-FAEFF84D3316}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogProxyApi.Web", "LogProxyApi.Web\LogProxyApi.Web.csproj", "{27718D06-90DA-4E91-8527-127D6BA9254F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogProxyApi.Web", "LogProxyApi.Web\LogProxyApi.Web.csproj", "{27718D06-90DA-4E91-8527-127D6BA9254F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogProxyApi.AirTable.Tests", "LogProxyApi.AirTable.Tests\LogProxyApi.AirTable.Tests.csproj", "{10BCB0CA-0747-4E21-9BE4-FE5561C22ABA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogProxyApi.AirTable.Tests", "LogProxyApi.AirTable.Tests\LogProxyApi.AirTable.Tests.csproj", "{10BCB0CA-0747-4E21-9BE4-FE5561C22ABA}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogProxyApi.Sample", "LogProxyApi.Sample\LogProxyApi.Sample.csproj", "{C1C3FF72-C13B-4322-91B2-935E52CC9B9D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogProxyApi.Web.Tests", "LogProxyApi.Web.Tests\LogProxyApi.Web.Tests.csproj", "{0F73C4E5-96EB-40C8-B8F8-DCF0699F5447}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,12 +39,21 @@ Global
 		{10BCB0CA-0747-4E21-9BE4-FE5561C22ABA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{10BCB0CA-0747-4E21-9BE4-FE5561C22ABA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{10BCB0CA-0747-4E21-9BE4-FE5561C22ABA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C1C3FF72-C13B-4322-91B2-935E52CC9B9D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C1C3FF72-C13B-4322-91B2-935E52CC9B9D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C1C3FF72-C13B-4322-91B2-935E52CC9B9D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C1C3FF72-C13B-4322-91B2-935E52CC9B9D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0F73C4E5-96EB-40C8-B8F8-DCF0699F5447}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F73C4E5-96EB-40C8-B8F8-DCF0699F5447}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0F73C4E5-96EB-40C8-B8F8-DCF0699F5447}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0F73C4E5-96EB-40C8-B8F8-DCF0699F5447}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{10BCB0CA-0747-4E21-9BE4-FE5561C22ABA} = {C94B57DF-F4BE-4644-9567-0ED646AE4845}
+		{0F73C4E5-96EB-40C8-B8F8-DCF0699F5447} = {C94B57DF-F4BE-4644-9567-0ED646AE4845}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B9B0A74A-AAB7-4618-994D-D280CA5F4439}

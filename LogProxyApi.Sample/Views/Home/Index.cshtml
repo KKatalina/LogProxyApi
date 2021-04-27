@@ -1,0 +1,44 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div >
+    <h3 class="display-4">Messages</h3>
+    <div id="app">
+        <div class="form-group">
+            <p>
+                <label>Full Name</label>
+                <input type="text" class="form-control" placeholder="Enter title" v-model="title" />
+            </p>
+
+            <p>
+                <label>Comments</label>
+                <textarea rows="10" class="form-control" placeholder="Enter message" v-model="text"></textarea>
+            </p>
+
+            <div>
+                <button class="btn btn-primary" v-on:click="saveMessage">Submit</button>
+            </div>
+        </div>
+
+        <button v-on:click="getMessages">Refresh List</button>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">Title</th>
+                    <th scope="col">Text</th>
+                    <th scope="col">Received Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="msg in messages">
+                    <td>{{ msg.id }}</td>
+                    <td>{{ msg.title }}</td>
+                    <td>{{ msg.text }}</td>
+                    <td>{{ msg.receivedAt }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

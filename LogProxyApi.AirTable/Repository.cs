@@ -27,6 +27,9 @@ namespace LogProxyApi.AirTable
                         queryParams.Add("offset", paginator.OffsetId);
                 }
 
+                    queryParams.Add("maxRecords", "4");
+
+
                 if (queryParams.Count == 0)
                 {
                     // TODO: extract all async
