@@ -1,6 +1,7 @@
 using LogProxyApi.Common.Interfaces;
 using LogProxyApi.Common.Models;
 using LogProxyApi.Web.Controllers;
+using Microsoft.Extensions.Logging;
 using Moq;
 using System;
 using System.Threading.Tasks;
@@ -33,7 +34,8 @@ namespace LogProxyApi.Web.Tests.Controllers
                                        Title = title
                                    }); 
                                });
-            var controller = new MessagesController(mock.Object);
+            var mockLog = new Mock<ILogger<MessagesController>>();
+            var controller = new MessagesController(mock.Object, mockLog.Object);
             var result = await controller.CreateMessageAsync(new Web.Models.Message() { Title = expected.Title, Text = expected.Text });
             Assert.IsType<Web.Models.Message>(result);
             Assert.Equal(expected.Id, result.Id);
@@ -48,8 +50,9 @@ namespace LogProxyApi.Web.Tests.Controllers
         {
             var mock = new Mock<IRepository>();
             mock.Setup(p => p.GetMessagesAsync(null)).Returns(GetTestMessages());
+            var mockLog = new Mock<ILogger<MessagesController>>();
 
-            var controller = new MessagesController(mock.Object);
+            var controller = new MessagesController(mock.Object, mockLog.Object);
             var result = await controller.GetMessagesAsync();
             var expected = await GetTestMessages();
             Assert.Equal(expected.Length, result.Length);
