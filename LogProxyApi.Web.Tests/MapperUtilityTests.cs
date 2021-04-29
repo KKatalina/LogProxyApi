@@ -19,7 +19,7 @@ namespace LogProxyApi.Web.Tests
             };
             var message = fields.MapEx();
 
-            Assert.IsType<Models.Message>(message);
+            Assert.IsType<Web.Models.Message>(message);
             Assert.Equal(fields.Title, message.Title);
             Assert.Equal(fields.Text, message.Text);
             Assert.Equal(fields.ReceivedAt, message.ReceivedAt);

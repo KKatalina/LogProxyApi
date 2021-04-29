@@ -7,23 +7,48 @@ var sample = new Vue({
     data: {
         title: '',
         text: '',
-        messages:[]
+        messages: [],
+        infoMessage: "",
+        errorMessage: ""
     },
     methods:
     {
         getMessages: function (event) {
+            this.errorMessage = null;
+            this.messages = [];
             this.$http.get('api/messages', function (data, status, request) {
                 if (status == 200) {
                     this.messages = data;
                 }
-            })
+                else
+                    this.errorMessage = 'Failed to load messages.'
+            }).then( 
+                (err) => {
+                    if (!err.ok)
+                        this.errorMessage = 'Failed to load messages.';
+                })
+                .catch((e) => {
+                    this.errorMessage = 'Failed to load messages.';
+                })
         },
         saveMessage: function (event) {
+            this.errorMessage = null;
             this.$http.post('api/messages', { title: this.title, text: this.text }, function (data, status, request) {
                 if (status == 200) {
-                    this.messages = data;
+                    this.infoMessage = 'New message with id "'+ data.id +'" was successfully created.';
                 }
-            })
+                else
+                    this.errorMessage = 'Failed to create message.'
+                this.title = '';
+                this.text = '';
+            }).then(
+                (err) => {
+                    if(!err.ok)
+                        this.errorMessage = 'Failed to load messages.';
+                })
+                .catch((e) => {
+                    this.errorMessage = 'Failed to load messages.';
+                })
         }
     }
 });

@@ -1,9 +1,11 @@
 ﻿using LogProxyApi.AirTable.Models;
 using LogProxyApi.Common.Interfaces;
 using LogProxyApi.Common.Models;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
@@ -13,6 +15,13 @@ namespace LogProxyApi.AirTable
 {
     public class Repository : IRepository
     {
+        private readonly ILogger<Repository> _logger;
+
+        public Repository(ILogger<Repository> logger)
+        {
+            _logger = logger;
+        }
+
         public async Task<Message[]> GetMessagesAsync(Paginator paginator = null)
         {
             using (var client = new HttpClient())
@@ -27,23 +36,41 @@ namespace LogProxyApi.AirTable
                         queryParams.Add("offset", paginator.OffsetId);
                 }
 
-                    queryParams.Add("maxRecords", "4");
+                //   queryParams.Add("maxRecords", "100");
 
+                var messages = new List<Message>();
 
                 if (queryParams.Count == 0)
                 {
-                    // TODO: extract all async
+                    if (!queryParams.ContainsKey("pageSize"))
+                        queryParams.Add("pageSize", "100");
                 }
-
-                var url = ConnectionSettings.AppendParams(ConnectionSettings.MessagesUrl, queryParams);
-
-                using (var response = await client.GetAsync(url))
+                while (true)
                 {
-                    response.EnsureSuccessStatusCode();
-                    string responseBody = await response.Content.ReadAsStringAsync();
-                    var result = JsonConvert.DeserializeObject<Data>(responseBody);
-                    return result.Records.Where(record => record != null).Select(record => MapperUtility.Mapper.Map<Message>(record.Fields)).ToArray();
+                    var url = ConnectionSettings.AppendParams(ConnectionSettings.MessagesUrl, queryParams);
+                    using (var response = await client.GetAsync(url))
+                    {
+                        response.EnsureSuccessStatusCode();
+                        string responseBody = await response.Content.ReadAsStringAsync();
+                        var result = JsonConvert.DeserializeObject<Data>(responseBody, new JsonSerializerSettings
+                        {
+                            Error = (sender, args)=>
+                            {
+                                _logger.LogWarning("Json parse error :: " + args.ErrorContext.Error.Message);
+                                args.ErrorContext.Handled = true;
+                            } 
+                        });
+                        messages.AddRange(result.Records.Where(record => record != null).Select(record => MapperUtility.Mapper.Map<Message>(record.Fields)).ToArray());
+                        if (string.IsNullOrEmpty(result.Offset))
+                            break;
+
+                        if (queryParams.ContainsKey("offset"))
+                            queryParams["offset"] = result.Offset;
+                        else
+                            queryParams.Add("offset", result.Offset);
+                    }
                 }
+                return messages.ToArray();
             }
         }
 

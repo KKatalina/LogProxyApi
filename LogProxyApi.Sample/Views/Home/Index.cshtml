@@ -5,6 +5,12 @@
 <div >
     <h3 class="display-4">Messages</h3>
     <div id="app">
+        <div class="alert alert-success" role="alert" v-if="infoMessage">
+            {{infoMessage}}
+        </div>
+        <div class="alert alert-danger" role="alert" v-if="errorMessage">
+            {{errorMessage}}
+        </div>
         <div class="form-group">
             <p>
                 <label>Full Name</label>
@@ -21,7 +27,7 @@
             </div>
         </div>
 
-        <button v-on:click="getMessages">Refresh List</button>
+        <button class="btn btn-info" v-on:click="getMessages">Refresh List</button>
         <table class="table">
             <thead>
                 <tr>

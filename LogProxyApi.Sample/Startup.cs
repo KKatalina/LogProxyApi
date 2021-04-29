@@ -2,14 +2,9 @@ using LogProxyApi.AirTable;
 using LogProxyApi.Common.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace LogProxyApi.Sample
 {
@@ -25,7 +20,6 @@ namespace LogProxyApi.Sample
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
             services.AddControllersWithViews();
             services.AddTransient<IRepository, Repository>();
             var assembly = System.Reflection.Assembly.Load("LogProxyApi.Web");
@@ -49,7 +43,7 @@ namespace LogProxyApi.Sample
             app.UseStaticFiles();
 
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

@@ -1,11 +1,12 @@
 using LogProxyApi.Common.Interfaces;
 using LogProxyApi.Common.Models;
+using LogProxyApi.Web.Controllers;
 using Moq;
 using System;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace LogProxyApi.Web.Tests
+namespace LogProxyApi.Web.Tests.Controllers
 {
     public class MessagesControllerTests
     {
@@ -33,8 +34,8 @@ namespace LogProxyApi.Web.Tests
                                    }); 
                                });
             var controller = new MessagesController(mock.Object);
-            var result = await controller.CreateMessageAsync(new Models.Message() { Title = expected.Title, Text = expected.Text });
-            Assert.IsType<Models.Message>(result);
+            var result = await controller.CreateMessageAsync(new Web.Models.Message() { Title = expected.Title, Text = expected.Text });
+            Assert.IsType<Web.Models.Message>(result);
             Assert.Equal(expected.Id, result.Id);
             Assert.Equal(expected.Title, result.Title);
             Assert.Equal(expected.Text, result.Text);
