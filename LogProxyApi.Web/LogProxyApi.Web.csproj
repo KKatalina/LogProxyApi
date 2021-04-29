@@ -20,4 +20,10 @@
     <ProjectReference Include="..\LogProxyApi.Common\LogProxyApi.Common.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="LogProxyApi.Web.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
