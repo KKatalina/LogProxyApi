@@ -5,6 +5,10 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.OpenApi.Models;
+using System;
+using System.IO;
+using System.Reflection;
 
 namespace LogProxyApi.Sample
 {
@@ -22,8 +26,39 @@ namespace LogProxyApi.Sample
         {
             services.AddControllersWithViews();
             services.AddTransient<IRepository, Repository>();
-            var assembly = System.Reflection.Assembly.Load("LogProxyApi.Web");
+            var assembly = Assembly.Load("LogProxyApi.Web");
             services.AddControllers().AddApplicationPart(assembly).AddControllersAsServices();
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Version = "v1",
+                    Title = "Log Proxy API",
+                    Description = "Log Proxy API",
+                    Contact = new OpenApiContact
+                    {
+                        Name = @"GitHub Repository",
+                        Email = string.Empty,
+                        Url = new Uri("https://github.com/KKatalina/LogProxyApi")
+                    }
+                });
+                var xmlFile = $"{assembly.GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                c.IncludeXmlComments(xmlPath, true);
+
+                var basicSecurityScheme = new OpenApiSecurityScheme
+                {
+                    Type = SecuritySchemeType.Http,
+                    Scheme = "basic",
+                    Reference = new OpenApiReference { Id = "BasicAuth", Type = ReferenceType.SecurityScheme }
+                };
+                c.AddSecurityDefinition(basicSecurityScheme.Reference.Id, basicSecurityScheme);
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {basicSecurityScheme, new string[] { }}
+                });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -41,6 +76,15 @@ namespace LogProxyApi.Sample
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
+                c.DocumentTitle = "API Auth Demo";
+                c.DefaultModelsExpandDepth(0);
+                c.RoutePrefix ="swagger";
+            });
 
             app.UseRouting();
             app.UseAuthentication();

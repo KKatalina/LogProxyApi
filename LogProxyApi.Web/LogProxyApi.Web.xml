@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>LogProxyApi.Web</name>
+    </assembly>
+    <members>
+        <member name="T:LogProxyApi.Web.Controllers.MessagesController">
+            <summary>
+            Messages controller.
+            </summary>
+        </member>
+        <member name="M:LogProxyApi.Web.Controllers.MessagesController.CreateMessageAsync(LogProxyApi.Web.Models.Message)">
+            <summary>
+            Used to save log message.
+            </summary>
+            <param name="newMessage">Message to be saved.</param>
+            <returns>Result message.</returns>
+        </member>
+        <member name="M:LogProxyApi.Web.Controllers.MessagesController.GetMessagesAsync">
+            <summary>
+            Gets all available messages.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:LogProxyApi.Web.Models.Message">
+            <summary>
+            Log message.
+            </summary>
+        </member>
+        <member name="P:LogProxyApi.Web.Models.Message.Id">
+            <summary>
+            Mesage id.
+            </summary>
+        </member>
+        <member name="P:LogProxyApi.Web.Models.Message.Title">
+            <summary>
+            Message title.
+            </summary>
+        </member>
+        <member name="P:LogProxyApi.Web.Models.Message.Text">
+            <summary>
+            Message text.
+            </summary>
+        </member>
+        <member name="P:LogProxyApi.Web.Models.Message.ReceivedAt">
+            <summary>
+            Timestamp when the message was received.
+            </summary>
+        </member>
+    </members>
+</doc>

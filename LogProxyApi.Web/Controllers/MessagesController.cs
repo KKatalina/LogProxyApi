@@ -9,6 +9,9 @@ using Microsoft.Extensions.Logging;
 
 namespace LogProxyApi.Web.Controllers
 {
+    /// <summary>
+    /// Messages controller.
+    /// </summary>
     [BasicAuthentication]
     [ApiController]
     [Route("api/[controller]")]
@@ -23,6 +26,11 @@ namespace LogProxyApi.Web.Controllers
             _logger = logger;
         }
 
+        /// <summary>
+        /// Used to save log message.
+        /// </summary>
+        /// <param name="newMessage">Message to be saved.</param>
+        /// <returns>Result message.</returns>
         [HttpPost]
         public async Task<Message> CreateMessageAsync([FromBody] Message newMessage)
         {
@@ -30,6 +38,10 @@ namespace LogProxyApi.Web.Controllers
             return result.MapEx();
         }
 
+        /// <summary>
+        /// Gets all available messages.
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public async Task<Message[]> GetMessagesAsync()
         {
