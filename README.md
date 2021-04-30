@@ -12,6 +12,8 @@ LogProxyApi.Web - messages controller implementation
 
 LogProxyApi.*.Tests - unit test for corresponding projects
 
+### Running the Application
+Open LogProxyApi.sln in Visual Studio and set LogProxyApi.Sample as default project. If there is no Docker on the PC installed, the IIS Debug profile must be selected first. Build and run the application.
 
 ### Testing
 After openning the main page you can test API controller in one of two ways: with available by default user interface or with Swagger.
